@@ -1,0 +1,23 @@
+<h2>Show property</h2>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @property.description %>
+  </li>
+
+  <li>
+    <strong>Squaremetres:</strong>
+    <%= @property.squareMetres %>
+  </li>
+
+  <li>
+    <strong>Rent:</strong>
+    <%= @property.rent %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: property_path(@conn, :edit, @property) %>
+<%= link "Back", to: property_path(@conn, :index) %>

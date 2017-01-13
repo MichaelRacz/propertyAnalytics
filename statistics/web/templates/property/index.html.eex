@@ -1,0 +1,30 @@
+<h2>Listing properties</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Squaremetres</th>
+      <th>Rent</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for property <- @properties do %>
+    <tr>
+      <td><%= property.description %></td>
+      <td><%= property.squareMetres %></td>
+      <td><%= property.rent %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: property_path(@conn, :show, property), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: property_path(@conn, :edit, property), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: property_path(@conn, :delete, property), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New property", to: property_path(@conn, :new) %>

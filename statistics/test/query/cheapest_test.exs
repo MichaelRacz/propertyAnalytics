@@ -1,0 +1,70 @@
+defmodule Statistics.Query.CheapestTest do
+  use Statistics.ModelCase
+
+  alias Statistics.Query
+  alias Statistics.Property
+
+  @valid_attributes %{description: "dummy", squareMetres: 76.2, rent: 608}
+
+  test "the cheapest property is returned" do
+    Property.changeset(%Property{}, %{@valid_attributes | rent: 200})
+    |> Repo.insert
+
+    {:ok, expectedCheapest} = Property.changeset(%Property{}, %{@valid_attributes | rent: 100})
+    |> Repo.insert
+
+    cheapest = Query.Cheapest.execute
+
+    assert cheapest == [expectedCheapest]
+  end
+
+  test "returns empty list when no property is committed" do
+    cheapest = Query.Cheapest.execute
+
+    assert cheapest == []
+  end
+
+  test "the 3 cheapest properties are returned" do
+      properties = for rent <- 4..1 do
+        {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | rent: rent})
+        |> Repo.insert
+
+        property
+      end
+
+      cheapest = Query.Cheapest.execute(3)
+
+      expectedCheapest = Enum.reverse(properties)
+      |> Enum.take(3)
+
+      assert cheapest == expectedCheapest
+  end
+
+  test "only properties with min rent < rent are returned" do
+    properties = for rent <- 1..3 do
+      {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | rent: rent})
+        |> Repo.insert
+
+      property
+    end
+
+    cheapest = Query.Cheapest.execute(2, 2.0)
+
+    expectedCheapest = Enum.at(properties, 2)
+    assert cheapest == [expectedCheapest]
+  end
+
+  test "only properties with rent <= max rent are returned" do
+    properties = for rent <- 1..3 do
+      {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | rent: rent})
+      |> Repo.insert
+
+      property
+    end
+
+    cheapest = Query.Cheapest.execute(2, 1.0, 2.0)
+
+    expectedCheapest = Enum.at(properties, 1)
+    assert cheapest == [expectedCheapest]
+  end
+end
