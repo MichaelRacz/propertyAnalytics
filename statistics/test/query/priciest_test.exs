@@ -24,7 +24,7 @@ defmodule Statistics.Query.PriciestTest do
     assert priciest == []
   end
 
-  test "the 3 priciest properties are returned" do
+  test "n priciest properties are returned" do
       properties = for rent <- 1..4 do
         {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | rent: rent})
           |> Repo.insert

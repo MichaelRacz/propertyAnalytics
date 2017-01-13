@@ -1,13 +1,21 @@
 defmodule Statistics.Query.RentPerSquareMetre do
+  import Statistics.Query.Subexpressions
   import Ecto.Query
 
-  alias Statistics.Property
+  def execute(maxCount \\ 1) do
+    properties = selectProperties(maxCount)
+      |> orderByRentPerSquareMetre
+      |> Statistics.Repo.all
 
-#order_by: [asc: property.rent / property.squareMetres]
-  def execute do
-    from property in Property,
-      limit: 1,
-      select: {property, property.rent + property.squareMetres} #, property.rent / property.squareMetres}
-      |> order_by([property], property.rent + property.squareMetres)
+    Enum.map(properties, &createResult/1)
+  end
+
+  defp orderByRentPerSquareMetre(query) do
+    query |> order_by([property], [asc: fragment("rent / \"squareMetres\"")])
+  end
+
+  defp createResult(property) do
+    rentPerSquareMetre = property.rent / property.squareMetres
+    {property, rentPerSquareMetre}
   end
 end
