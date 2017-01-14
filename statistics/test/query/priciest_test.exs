@@ -40,31 +40,31 @@ defmodule Statistics.Query.PriciestTest do
       assert priciest == expectedPriciest
   end
 
-  test "only properties with min rent < rent are returned" do
-    properties = for rent <- 1..3 do
-      {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | rent: rent})
+  test "only properties with min square metres < square metres are returned" do
+    properties = for squareMetres <- 1..3 do
+      {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | squareMetres: squareMetres * 10.0})
         |> Repo.insert
 
       property
     end
 
-    priciest = Query.Priciest.execute(2, 2.0)
+    priciestInRange = Query.Priciest.execute(2, 20.0)
 
-    expectedPriciest = Enum.at(properties, 2)
-    assert priciest == [expectedPriciest]
+    expectedPriciestInRange = Enum.at(properties, 2)
+    assert priciestInRange == [expectedPriciestInRange]
   end
 
-  test "only properties with rent <= max rent are returned" do
-    properties = for rent <- 1..3 do
-      {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | rent: rent})
+  test "only properties with square metres <= max square metres are returned" do
+    properties = for squareMetres <- 1..3 do
+      {:ok, property} = Property.changeset(%Property{}, %{@valid_attributes | squareMetres: squareMetres * 10.0})
         |> Repo.insert
 
       property
     end
 
-    priciest = Query.Priciest.execute(2, 1.0, 2.0)
+    priciestInRange = Query.Priciest.execute(2, 10.0, 20.0)
 
-    expectedPriciest = Enum.at(properties, 1)
-    assert priciest == [expectedPriciest]
+    expectedPriciestInRange = Enum.at(properties, 1)
+    assert priciestInRange == [expectedPriciestInRange]
   end
 end

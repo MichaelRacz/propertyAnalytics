@@ -2,11 +2,11 @@ defmodule Statistics.Query.Priciest do
   import Statistics.Query.Subexpressions
   import Ecto.Query
 
-  def execute(maxCount \\ 1, minRentExclusive \\ nil, maxRentInclusive \\ nil) do
+  def execute(maxCount \\ 1, minSquareMetresExclusive \\ nil, maxSquareMetresInclusive \\ nil) do
     selectProperties(maxCount)
       |> orderByRentDescending
-      |> setMinRentCondition(minRentExclusive)
-      |> setMaxRentCondition(maxRentInclusive)
+      |> setMinSquareMetresCondition(minSquareMetresExclusive)
+      |> setMaxSquareMetresCondition(maxSquareMetresInclusive)
       |> Statistics.Repo.all
   end
 

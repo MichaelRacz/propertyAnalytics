@@ -9,17 +9,18 @@ defmodule Statistics.Query.Subexpressions do
       select: property
   end
 
-  def setMinRentCondition(query, minRentExclusive) do
-    case minRentExclusive do
+  # TODO consider rename/refactoring: appendMinExclusiveConditon?
+  def setMinSquareMetresCondition(query, minSquareMetresExclusive) do
+    case minSquareMetresExclusive do
       nil -> query
-      _ -> query |> where([property], ^minRentExclusive < property.rent)
+      _ -> query |> where([property], ^minSquareMetresExclusive < property.squareMetres)
     end
   end
 
-  def setMaxRentCondition(query, maxRentInclusive) do
-    case maxRentInclusive do
+  def setMaxSquareMetresCondition(query, maxSquareMetresInclusive) do
+    case maxSquareMetresInclusive do
       nil -> query
-      _ -> query |> where([property], property.rent <= ^maxRentInclusive)
+      _ -> query |> where([property], property.squareMetres <= ^maxSquareMetresInclusive)
     end
   end
 end
