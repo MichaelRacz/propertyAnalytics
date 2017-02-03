@@ -2,6 +2,8 @@ defmodule Statistics.Query.Cheapest do
   import Statistics.Query.Subexpressions
   import Ecto.Query
 
+  @behaviour Statistics.Query.Behaviour.Cheapest
+
   def execute(maxCount \\ 1, minSquareMetresExclusive \\ nil, maxSquareMetresInclusive \\ nil) do
     selectProperties(maxCount)
       |> orderByRentAscending
