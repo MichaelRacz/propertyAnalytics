@@ -62,4 +62,5 @@ config :statistics, Statistics.Repo,
   username: "postgres",
   password: "postgres",
   database: "statistics_prod",
+  hostname: "statistics_db",
   pool_size: 20
