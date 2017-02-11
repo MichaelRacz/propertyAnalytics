@@ -19,9 +19,9 @@ RUN brunch build --production
 RUN mix phoenix.digest
 
 # Custom tasks (like DB migrations)
-CMD mix ecto.migrate
+CMD ["mix", "ecto.migrate"]
 
 # Finally run the server
-CMD mix phoenix.server
+CMD ["mix", "phoenix.server"]
  
 EXPOSE 80
