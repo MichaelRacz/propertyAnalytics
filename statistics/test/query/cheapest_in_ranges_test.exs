@@ -4,10 +4,6 @@ defmodule Statistics.Query.CheapestInRangesTest do
   alias Statistics.Query.CheapestInRanges
   alias Statistics.Query.TestPartition
 
-  setup do
-    Code.require_file("test/query/test_partition.exs")
-  end
-
   defmodule TestCheapest do
     alias Statistics.Query.TestPartition
 

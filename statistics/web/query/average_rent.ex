@@ -4,6 +4,8 @@ defmodule Statistics.Query.AverageRent do
 
   alias Statistics.Property
 
+  @behaviour Statistics.Query.Behaviour.AverageRent
+
   def execute(minSquareMetresExclusive \\ nil, maxSquareMetresInclusive \\ nil) do
     query = (from property in Property,
       select: avg(property.rent))
