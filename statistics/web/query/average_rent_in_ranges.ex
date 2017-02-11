@@ -6,8 +6,8 @@ defmodule Statistics.Query.AverageRentInRanges do
   @partitionSize 5
 
   def execute(averageRentQuery \\ Query.AverageRent, partition \\ Query.Partition) do
-    for {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
-      averageRentQuery.execute(min, max)
+    for partition = {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
+      {partition, averageRentQuery.execute(min, max)}
     end
   end
 end

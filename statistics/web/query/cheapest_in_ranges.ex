@@ -7,8 +7,8 @@ defmodule Statistics.Query.CheapestInRanges do
   @maxCountPerRange 3
 
   def execute(cheapestQuery \\ Query.Cheapest, partition \\ Query.Partition) do
-    for {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
-      cheapestQuery.execute(@maxCountPerRange, min, max)
+    for partition = {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
+      {partition, cheapestQuery.execute(@maxCountPerRange, min, max)}
     end
   end
 end

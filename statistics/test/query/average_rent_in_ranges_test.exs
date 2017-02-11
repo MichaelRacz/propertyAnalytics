@@ -27,13 +27,9 @@ defmodule Statistics.Query.AverageRentInRangesTest do
   end
 
   test "average rent of ranges are concatenated" do
-    # result = AverageRentInRanges.execute(TestAverageRent, TestPartition)
+    result = AverageRentInRanges.execute(TestAverageRent, TestPartition)
 
-    #assert result == [TestAverageRent.resultOfRange1, TestAverageRent.resultOfRange2]
-    assert 1 == 1
-  end
-
-  test "bla" do
-    assert 1 == 1
+    assert result == [{TestPartition.range1, TestAverageRent.resultOfRange1},
+      {TestPartition.range2, TestAverageRent.resultOfRange2}]
   end
 end
