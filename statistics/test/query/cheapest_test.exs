@@ -48,8 +48,7 @@ defmodule Statistics.Query.CheapestTest do
       property
     end
 
-    # TODO: is this robust?
-    cheapestInRange = Query.Cheapest.execute(2, 20.0)
+    cheapestInRange = Query.Cheapest.execute(2, 20)
 
     expectedCheapestInRange = Enum.at(properties, 2)
     assert cheapestInRange == [expectedCheapestInRange]
@@ -63,7 +62,7 @@ defmodule Statistics.Query.CheapestTest do
       property
     end
 
-    cheapestInRange = Query.Cheapest.execute(2, 10.0, 20.0)
+    cheapestInRange = Query.Cheapest.execute(2, 10, 20)
 
     expectedCheapestInRange = Enum.at(properties, 1)
     assert cheapestInRange == [expectedCheapestInRange]

@@ -33,7 +33,7 @@ defmodule Statistic.Query.AverageRentTest do
         |> Repo.insert
     end
 
-    averageRent = Query.AverageRent.execute(20.0)
+    averageRent = Query.AverageRent.execute(20)
 
     expectedAverageRent = 300.0
     assert abs(averageRent - expectedAverageRent) <= @epsilon
@@ -47,7 +47,7 @@ defmodule Statistic.Query.AverageRentTest do
         |> Repo.insert
     end
 
-    averageRent = Query.AverageRent.execute(0.0, 20.0)
+    averageRent = Query.AverageRent.execute(0, 20)
 
     expectedAverageRent = 150.0
     assert abs(averageRent - expectedAverageRent) <= @epsilon

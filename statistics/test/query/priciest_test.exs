@@ -48,7 +48,7 @@ defmodule Statistics.Query.PriciestTest do
       property
     end
 
-    priciestInRange = Query.Priciest.execute(2, 20.0)
+    priciestInRange = Query.Priciest.execute(2, 20)
 
     expectedPriciestInRange = Enum.at(properties, 2)
     assert priciestInRange == [expectedPriciestInRange]
@@ -62,7 +62,7 @@ defmodule Statistics.Query.PriciestTest do
       property
     end
 
-    priciestInRange = Query.Priciest.execute(2, 10.0, 20.0)
+    priciestInRange = Query.Priciest.execute(2, 10, 20)
 
     expectedPriciestInRange = Enum.at(properties, 1)
     assert priciestInRange == [expectedPriciestInRange]
