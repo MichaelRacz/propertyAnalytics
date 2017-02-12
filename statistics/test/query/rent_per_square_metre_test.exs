@@ -56,5 +56,5 @@ defmodule Statistics.Query.RentPerSquareMetreTest do
     assert abs(rentPerSquareMetre - expectedRentPerSquareMetre) <= @epsilon
   end
 
-  # TODO square metre borders (also in other tests)
+  # TODO improve test to cover square metre borders (also in other tests)
 end

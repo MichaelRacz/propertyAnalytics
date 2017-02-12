@@ -9,7 +9,6 @@ defmodule Statistics.Query.Subexpressions do
       select: property
   end
 
-  # TODO consider rename/refactoring: appendMinExclusiveConditon?
   def setMinSquareMetresCondition(query, minSquareMetresExclusive) do
     case minSquareMetresExclusive do
       nil -> query

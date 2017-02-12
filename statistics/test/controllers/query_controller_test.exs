@@ -3,7 +3,6 @@ defmodule Statistics.QueryControllerTest do
 
   alias Statistics.Property
 
-  #TODO is get correct?
   @epsilon 0.1
 
   setup do
