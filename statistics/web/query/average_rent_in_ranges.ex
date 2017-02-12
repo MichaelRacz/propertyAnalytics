@@ -6,8 +6,13 @@ defmodule Statistics.Query.AverageRentInRanges do
   @partitionSize 5
 
   def execute(averageRentQuery \\ Query.AverageRent, partition \\ Query.Partition) do
-    for partition = {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
-      {partition, averageRentQuery.execute(min, max)}
+    # Execute queries parallel to try out async/await. Would have more impact if db is mirrored.
+    tasks = for partition = {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
+      Task.async(fn -> {partition, averageRentQuery.execute(min, max)} end)
+    end
+
+    for task <- tasks do
+      Task.await(task)
     end
   end
 end

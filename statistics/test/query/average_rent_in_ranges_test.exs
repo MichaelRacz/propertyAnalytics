@@ -3,9 +3,11 @@ defmodule Statistics.Query.AverageRentInRangesTest do
 
   alias Statistics.Query.AverageRentInRanges
   alias Statistics.Query.TestPartition
+  alias Statistics.Query.PidHelper
 
   defmodule TestAverageRent do
     alias Statistics.Query.TestPartition
+    alias Statistics.Query.PidHelper
 
     @behaviour Statistics.Query.Behaviour.AverageRent
 
@@ -16,6 +18,9 @@ defmodule Statistics.Query.AverageRentInRangesTest do
     def resultOfRange2, do: @resultOfRange2
 
     def execute(minSquareMetresExclusive, maxSquareMetresInclusive) do
+      testPid = PidHelper.getTestPid()
+      assert self() != testPid
+
       range1 = TestPartition.range1
       range2 = TestPartition.range2
 
@@ -27,6 +32,7 @@ defmodule Statistics.Query.AverageRentInRangesTest do
   end
 
   test "average rent of ranges are concatenated" do
+    PidHelper.setTestPid(self())
     result = AverageRentInRanges.execute(TestAverageRent, TestPartition)
 
     range1 = TestPartition.range1

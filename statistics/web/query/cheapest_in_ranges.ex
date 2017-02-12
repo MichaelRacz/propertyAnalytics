@@ -7,8 +7,13 @@ defmodule Statistics.Query.CheapestInRanges do
   @maxCountPerRange 3
 
   def execute(cheapestQuery \\ Query.Cheapest, partition \\ Query.Partition) do
-    for partition = {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
-      {partition, cheapestQuery.execute(@maxCountPerRange, min, max)}
+    # Execute queries parallel to try out async/await. Would have more impact if db is mirrored.
+    tasks = for partition = {min, max} <- partition.create(@firstPartitionMin, @lastPartitionMax, @partitionSize) do
+      Task.async(fn -> {partition, cheapestQuery.execute(@maxCountPerRange, min, max)} end)
+    end
+
+    for task <- tasks do
+      Task.await(task)
     end
   end
 end

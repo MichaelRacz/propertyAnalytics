@@ -3,9 +3,11 @@ defmodule Statistics.Query.CheapestInRangesTest do
 
   alias Statistics.Query.CheapestInRanges
   alias Statistics.Query.TestPartition
+  alias Statistics.Query.PidHelper
 
   defmodule TestCheapest do
     alias Statistics.Query.TestPartition
+    alias Statistics.Query.PidHelper
 
     @behaviour Statistics.Query.Behaviour.Cheapest
 
@@ -16,6 +18,8 @@ defmodule Statistics.Query.CheapestInRangesTest do
     def resultOfRange2, do: @resultOfRange2
 
     def execute(maxCount, minSquareMetresExclusive, maxSquareMetresInclusive) do
+      testPid = PidHelper.getTestPid()
+      assert self() != testPid
       assert maxCount == 3
 
       range1 = TestPartition.range1
@@ -29,6 +33,8 @@ defmodule Statistics.Query.CheapestInRangesTest do
   end
 
   test "cheapest properties of ranges are concatenated" do
+    PidHelper.setTestPid(self())
+
     result = CheapestInRanges.execute(TestCheapest, TestPartition)
 
     range1 = TestPartition.range1
