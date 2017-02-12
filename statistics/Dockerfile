@@ -3,7 +3,6 @@ FROM marcelocg/phoenix
 COPY . /code/
 RUN cd /code
 
-# set variables
 ENV MIX_ENV prod
 ENV PORT 80
 
@@ -18,11 +17,8 @@ RUN npm install -g brunch
 RUN brunch build --production
 RUN mix phoenix.digest
 
-# Setup DB
-CMD ["mix", "ecto.create"]
-CMD ["mix", "ecto.migrate"]
-
-# Finally run the server
-CMD ["mix", "phoenix.server"]
+# Setup DB and  run the server
+# TODO: find a cleaner solution
+CMD ["sh", "-c", "mix ecto.create; mix ecto.migrate; mix phoenix.server"]
  
 EXPOSE 80
