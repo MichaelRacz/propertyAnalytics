@@ -14,14 +14,20 @@ defmodule Statistics.Router do
   end
 
   scope "/", Statistics do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
     resources "/properties", PropertyController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Statistics do
-  #   pipe_through :api
-  # end
+  scope "/query", Statistics do
+    pipe_through :api
+
+    get "/averageRentInRanges", QueryController, :averageRentInRanges
+    get "/averageRent", QueryController, :averageRent
+    get "/cheapestInRanges", QueryController, :cheapestInRanges
+    get "/cheapest", QueryController, :cheapest
+    get "/priciest", QueryController, :priciest
+    get "/rentPerSquareMetre", QueryController, :rentPerSquareMetre
+  end
 end

@@ -2,6 +2,7 @@ defmodule Statistics.PropertyControllerTest do
   use Statistics.ConnCase
 
   alias Statistics.Property
+
   @valid_attrs %{description: "description of the property", rent: "750.5", squareMetres: "60.2"}
   @invalid_attrs %{}
 

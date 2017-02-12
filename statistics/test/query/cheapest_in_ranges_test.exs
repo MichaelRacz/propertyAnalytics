@@ -31,7 +31,10 @@ defmodule Statistics.Query.CheapestInRangesTest do
   test "cheapest properties of ranges are concatenated" do
     result = CheapestInRanges.execute(TestCheapest, TestPartition)
 
-    assert result == [{TestPartition.range1, TestCheapest.resultOfRange1},
-      {TestPartition.range2, TestCheapest.resultOfRange2}]
+    range1 = TestPartition.range1
+    range2 = TestPartition.range2
+
+    assert result == [{range1, TestCheapest.resultOfRange1},
+      {range2, TestCheapest.resultOfRange2}]
   end
 end
