@@ -11,12 +11,11 @@ docker run --net property_analytics \
   -d \
   postgres
 
-docker run --link statistics_db:statistics_db \
-  -e PGPASSWORD=postgres \
-  -d \
-  --rm \
-  postgres psql -h statistics_db -U postgres -c 'CREATE DATABASE statistics_prod'
-
-# create the image for the statistics application
 docker build --tag property_analytics/statistics ${DIR}/../statistics
-docker run --net property_analytics --link statistics_db:statistics_db -d property_analytics/statistics
+
+docker run --net property_analytics \
+  --name statistics_app \
+  --hostname statistics_app \
+  --link statistics_db:statistics_db \
+  -d \
+  property_analytics/statistics

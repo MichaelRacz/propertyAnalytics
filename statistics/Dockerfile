@@ -18,7 +18,8 @@ RUN npm install -g brunch
 RUN brunch build --production
 RUN mix phoenix.digest
 
-# Custom tasks (like DB migrations)
+# Setup DB
+CMD ["mix", "ecto.create"]
 CMD ["mix", "ecto.migrate"]
 
 # Finally run the server
