@@ -12,6 +12,7 @@ docker run --net property_analytics \
   postgres
 
 docker build --tag property_analytics/statistics ${DIR}/../statistics
+docker build --tag property_analytics/ui ${DIR}/../ui
 
 docker run --net property_analytics \
   --name statistics_app \
@@ -19,3 +20,9 @@ docker run --net property_analytics \
   --link statistics_db:statistics_db \
   -d \
   property_analytics/statistics
+
+docker run --net property_analytics \
+  --name ui \
+  --hostname ui \
+  -d \
+  property_analytics/ui
