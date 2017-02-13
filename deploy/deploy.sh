@@ -13,6 +13,7 @@ docker run --net property_analytics \
 
 docker build --tag property_analytics/statistics ${DIR}/../statistics
 docker build --tag property_analytics/ui ${DIR}/../ui
+docker build --tag property_analytics/crawl ${DIR}/../crawl
 
 docker run --net property_analytics \
   --name statistics_app \
@@ -26,3 +27,9 @@ docker run --net property_analytics \
   --hostname ui \
   -d \
   property_analytics/ui
+
+docker run --net property_analytics \
+  --name crawl \
+  --hostname crawl \
+  -d \
+  property_analytics/crawl

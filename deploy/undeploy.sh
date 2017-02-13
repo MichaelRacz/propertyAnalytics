@@ -5,3 +5,4 @@ docker network rm property_analytics
 
 docker rmi property_analytics/statistics
 docker rmi property_analytics/ui
+docker rmi property_analytics/crawl
