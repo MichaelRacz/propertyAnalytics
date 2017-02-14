@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var properties = [{description: "a", rent: 600, squareMetres: 65},
-  {description: "b", rent: 700, squareMetres: 75},
-  {description: "c", rent: 800, squareMetres: 85}];
+var properties = [{description: "property a", rent: 600, squareMetres: 65},
+  {description: "property b", rent: 700, squareMetres: 75},
+  {description: "property c", rent: 800, squareMetres: 85}];
 
 class Property extends React.Component {
   render() {
-    return (<section>
-        {this.props.property.description}
-        {this.props.property.rent}
-        {this.props.property.squareMetres}
+    var sectionStyle = { border: "1px dotted", "background-color": "rgb(176, 196, 222)" };
+    var displayInline = {display: "inline"};
+
+    return (<section style={sectionStyle}>
+        <p>description:<div className="description" style={displayInline}>{this.props.property.description}</div></p>
+        <p>rent:<div className="rent" style={displayInline}>{this.props.property.rent}</div></p>
+        <p>squareMetres:<div className="squareMetres" style={displayInline}>{this.props.property.squareMetres}</div></p>
       </section>);
   }
 };
@@ -23,7 +26,7 @@ class PropertyList extends React.Component {
                   
     return (<div>
         <h1>Properties</h1>
-        <p>This is a list of available properties</p>
+        <p>This is a horribly styled list of available properties</p>
         {properties}
       </div>);
   }
