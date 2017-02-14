@@ -9,6 +9,7 @@ class CrawlCommand
 
   def execute()
     html = @htmlProvider.get(url)
-    @propertyExtractor.extract(html)
+    properties = @propertyExtractor.extract(html)
+    {:url => url, :properties => properties}
   end
 end
