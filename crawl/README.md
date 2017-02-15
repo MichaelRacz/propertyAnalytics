@@ -1,24 +1,18 @@
-# README
+# Crawl
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a tiny web app to crawl properties/real web sites. 
 
-Things you may want to cover:
+The purpose of this app is to find out how much code is needed to run a simple web crawler with ruby.
 
-* Ruby version
+The used frameworks/applications/libraries include:
+  * Grape
+  * PhantomJS
+  * Watir
+  * Nokogiri
 
-* System dependencies
+There is only one web method which starts a crawl: [`localhost:3000/crawl?url=<url_to_crawl>`](localhost:3000/crawl?url=<url_to_crawl>). The static site of the ui component can be crawled by passing `localhost:8080` as the <url_to_crawl> when it is hosted locally.
 
-* Configuration
+## To start your Phoenix app:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  * Install dependencies with `bundle install`
+  * Start the server with `rails server`
