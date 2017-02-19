@@ -5,9 +5,11 @@ class PropertyExtractor
     properties = Array.new
 
     sections.each do |section|
-      properties << { :description => section.at_css('div.description').text,
+      properties << {
+        :description => section.at_css('div.description').text,
         :rent => section.at_css('div.rent').text,
-        :squareMetres => section.at_css('div.squareMetres').text }
+        :squareMetres => section.at_css('div.squareMetres').text
+      }
     end
 
     properties

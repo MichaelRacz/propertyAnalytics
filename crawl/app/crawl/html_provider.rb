@@ -10,8 +10,8 @@ class HtmlProvider
 
   def get()
     #TODO: error handling
-    browser = Watir::Browser.new(:phantomjs)
-    browser.goto(@url)
+    browser = Watir::Browser.new :phantomjs
+    browser.goto @url
     browser.html
   end
 end

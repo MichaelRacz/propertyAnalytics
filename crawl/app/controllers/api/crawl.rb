@@ -5,11 +5,21 @@ module API
     format :json
 
     params do
-      requires :url, type: String, desc: "url to be crawled"
+      requires :url, type: String, desc: 'url to be crawled'
     end
-    get "crawl" do
+    get 'crawl' do
       factory = CrawlCommandFactory.new
-      command = factory.create(params[:url])
+      command = factory.create_from_url params[:url]
+      command.execute
+    end
+
+    params do
+      requires :html, type: File, desc: 'html file to be crawled'
+    end
+    post 'crawl' do
+      factory = CrawlCommandFactory.new
+      html = params[:html].tempfile
+      command = factory.create_from_html html
       command.execute
     end
   end
