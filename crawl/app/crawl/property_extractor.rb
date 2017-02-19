@@ -1,5 +1,6 @@
 class PropertyExtractor
   def extract(html)
+    html = Nokogiri::HTML(html)
     sections = html.css('section')
     properties = Array.new
 

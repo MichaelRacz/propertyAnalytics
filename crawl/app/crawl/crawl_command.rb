@@ -1,15 +1,14 @@
 class CrawlCommand
-  attr_accessor :url, :htmlProvider, :propertyExtractor
+  attr_accessor :html_provider, :property_extractor
 
-  def initialize(url, htmlProvider, propertyExtractor)
-    @url = url
-    @htmlProvider = htmlProvider
-    @propertyExtractor = propertyExtractor
+  def initialize(html_provider, property_extractor)
+    @html_provider = html_provider
+    @property_extractor = property_extractor
   end
 
   def execute()
-    html = @htmlProvider.get(url)
-    properties = @propertyExtractor.extract(html)
-    {:url => url, :properties => properties}
+    html = @html_provider.get()
+    properties = @property_extractor.extract(html)
+    {:properties => properties}
   end
 end

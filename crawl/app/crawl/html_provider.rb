@@ -2,10 +2,16 @@ require 'open-uri'
 require 'watir-webdriver'
 
 class HtmlProvider
-  def get(url)
+  attr_accessor :url
+
+  def initialize(url)
+    @url = url
+  end
+
+  def get()
     #TODO: error handling
     browser = Watir::Browser.new(:phantomjs)
-    browser.goto(url)
-    Nokogiri::HTML(browser.html)
+    browser.goto(@url)
+    browser.html
   end
 end

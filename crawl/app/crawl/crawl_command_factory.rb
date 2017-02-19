@@ -4,7 +4,6 @@ require_relative 'property_extractor'
 
 class CrawlCommandFactory
   def create(url)
-    CrawlCommand.new(url, HtmlProvider.new, PropertyExtractor.new)
+    CrawlCommand.new(HtmlProvider.new url, PropertyExtractor.new)
   end
 end
-

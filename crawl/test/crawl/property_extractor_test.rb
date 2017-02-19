@@ -5,7 +5,7 @@ class PropertyExtractorTest < ActiveSupport::TestCase
   test 'properties are extracted' do
     extractor = PropertyExtractor.new
 
-    html = Nokogiri::HTML(%Q{<html><body>
+    html = %Q{<html><body>
 <section>
   <div class="description">a</div>
   <div class="rent">1</div>
@@ -15,10 +15,10 @@ class PropertyExtractorTest < ActiveSupport::TestCase
   <div class="description">b</div>
   <div class="rent">3</div>
   <div class="squareMetres">4</div>
-</section></body></html>})
+</section></body></html>}
 
     properties = extractor.extract(html)
-    
+
     property1 = properties[0]
     assert_equal "a", property1[:description]
     assert_equal "1", property1[:rent]
@@ -33,16 +33,16 @@ class PropertyExtractorTest < ActiveSupport::TestCase
   test 'single property is extracted' do
     extractor = PropertyExtractor.new
 
-    html = Nokogiri::HTML(%Q{<html><body>
+    html = %Q{<html><body>
 <section>
   <div class="description">a</div>
   <div class="rent">1</div>
   <div class="squareMetres">2</div>
 </section>
-</body></html>})
+</body></html>}
 
     properties = extractor.extract(html)
-    
+
     property1 = properties[0]
     assert_equal "a", property1[:description]
     assert_equal "1", property1[:rent]
@@ -52,7 +52,7 @@ class PropertyExtractorTest < ActiveSupport::TestCase
   test 'elements in between are ignored' do
     extractor = PropertyExtractor.new
 
-    html = Nokogiri::HTML(%Q{<html><body>
+    html = %Q{<html><body>
 <div>
 <section>
   <div class="intermediate">
@@ -62,10 +62,10 @@ class PropertyExtractorTest < ActiveSupport::TestCase
   </div>
 </section>
 </div>
-</body></html>})
+</body></html>}
 
     properties = extractor.extract(html)
-    
+
     property1 = properties[0]
     assert_equal "a", property1[:description]
     assert_equal "1", property1[:rent]
